@@ -46,7 +46,7 @@ echo -e "\nCalling disable-interface-offloading_stamus.sh"
 
 # Calling kernel-tuneup_stamus.sh
 echo -e "\nCalling kernel-tuneup_stamus.sh"
-./opt/selks/Scripts/Tuning/./kernel-tuneup_stamus.sh
+/opt/selks/Scripts/Tuning/./kernel-tuneup_stamus.sh
 
 
 
