@@ -41,3 +41,11 @@ echo -e "\n The supplied network interface is :  ${interface} \n";
 /sbin/ethtool -C ${interface} adaptive-rx off
 /sbin/ethtool -G ${interface} rx 4096
 
+echo -e "###################################"
+echo -e "# CURRENT STATUS - NIC OFFLOADING #"
+echo -e "###################################"
+/sbin/ethtool -k ${interface} 
+echo -e "######################################"
+echo -e "# CURRENT STATUS - NIC RINGS BUFFERS #"
+echo -e "######################################"
+/sbin/ethtool -g ${interface} 
