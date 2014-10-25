@@ -2,7 +2,7 @@
 
 # Copyright(C) 2014, Stamus Networks
 # All rights reserved
-# Part of debian SELKS scripts
+# Part of Debian SELKS scripts
 # Written by Peter Manev <pmanev@stamus-networks.com>
 #
 # Please run on Debian
