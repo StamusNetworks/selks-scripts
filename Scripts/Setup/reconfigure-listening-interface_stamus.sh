@@ -32,13 +32,6 @@ echo -e "\nThe supplied network interface is:  ${interface} \n";
       exit 1;
   fi
 
-# Edit the /etc/default/suricata
-echo -e "\nEditing the /etc/default/suricata"
-sed -i -e "s/^IFACE=.*/IFACE=${interface}/g" /etc/default/suricata
-
-# Adjusting the /etc/suricata/suricata.yaml
-echo -e "\nAdjust the /etc/suricata/suricata.yaml"
-sed -i -e "/^af-packet:/{\$!N; s/  - interface: .*/  - interface: ${interface}/}" /etc/suricata/suricata.yaml
 
 # Calling disable-interface-offloading_stamus.sh
 echo -e "\nCalling disable-interface-offloading_stamus.sh"
