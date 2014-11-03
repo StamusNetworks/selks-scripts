@@ -40,8 +40,13 @@ apt-get update
 
 # to automatically accept the ORACLE license (no user input needed)
 #echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
-apt-get install  oracle-java7-installer
-apt-get install  oracle-java7-set-default
+apt-get install  oracle-java7-installer oracle-java7-set-default
+
+if [ $? != 0 ]; 
+then
+    # continue with the script if the user has chosen not to install
+    exit 0
+fi
 
 if [ ${ES_WAS_RUNNING} -eq 0 ]; 
 then
