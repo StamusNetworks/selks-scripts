@@ -27,20 +27,20 @@ apt-get update
 # to automatically accept the ORACLE license (no user input needed)
 #echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
 apt-get install oracle-java7-installer 
-apt-get install oracle-java7-set-default
 
-
-echo "Restarting Elasticsearch service after Java upgrade!"
-/etc/init.d/elasticsearch restart
-
-sleep 5
-
-echo "Restarting Logstash service after Java upgrade!"
-/etc/init.d/logstash restart
+if [ $? -eq 0 ];
+then
+    echo "Restarting Elasticsearch service after Java upgrade!"
+    /etc/init.d/elasticsearch restart
+    
+    sleep 5
+    
+    echo "Restarting Logstash service after Java upgrade!"
+    /etc/init.d/logstash restart
+fi
 
 echo -e "###############################"
 echo -e "# RUNNING ORACLE JAVA VERSION # ==>"
 echo -e "###############################"
 
 /usr/bin/java -version
-
