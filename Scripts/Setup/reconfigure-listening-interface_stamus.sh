@@ -16,8 +16,6 @@ echo -e "Example - eth1"
 echo -e "\nThe script will make adjustments for(or in): "
 echo -e "    1) the interface provided"
 echo -e "    2) kernel tuning"
-echo -e "    3) /etc/default/suricata"
-echo -e "    4) /etc/suricata/suricata.yaml"
 
 echo "INTERFACE: "
 read interface
