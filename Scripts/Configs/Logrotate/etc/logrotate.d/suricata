@@ -1,0 +1,13 @@
+/var/log/suricata/eve.json {
+	daily
+	rotate 30
+        olddir /var/log/suricata/StatsByDate/
+	compress
+	missingok
+	notifempty
+	dateext
+	postrotate
+	    /bin/kill -HUP $(cat /var/run/suricata.pid)
+	    /bin/kill -HUP $(cat /var/run/logstash.pid)
+	endscript
+}
