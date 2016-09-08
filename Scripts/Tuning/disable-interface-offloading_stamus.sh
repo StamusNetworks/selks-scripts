@@ -45,6 +45,9 @@ echo -e "\n The supplied network interface is :  ${interface} \n";
 /sbin/ethtool -K ${interface} sg off
 /sbin/ethtool -K ${interface} rxvlan off
 /sbin/ethtool -K ${interface} txvlan off
+/sbin/ethtool -K ${interface} ntuple off
+/sbin/ethtool -K ${interface} rxhash off
+/sbin/ethtool -L ${interface} combined 1
 /sbin/ethtool -N ${interface} rx-flow-hash udp4 sdfn
 /sbin/ethtool -N ${interface} rx-flow-hash udp6 sdfn
 /sbin/ethtool -n ${interface} rx-flow-hash udp6
