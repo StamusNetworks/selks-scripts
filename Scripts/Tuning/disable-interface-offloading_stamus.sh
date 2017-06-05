@@ -40,7 +40,7 @@ echo -e "\n The supplied network interface is :  ${interface} \n";
 for i in rx tx sg tso ufo gso gro lro rxvlan txvlan ntuple rxhash; do /sbin/ethtool -K ${interface} $i off >/dev/null 2>&1; done; 
 
 /sbin/ethtool -A ${interface} rx off tx off >/dev/null 2>&1;
-/sbin/ip link set ${interface} promisc on arp off up >/dev/null 2>&1;
+/sbin/ip link set ${interface} promisc on up >/dev/null 2>&1;
 /sbin/ethtool -C ${interface} rx-usecs 1 rx-frames 0 >/dev/null 2>&1;
 /sbin/ethtool -L ${interface} combined 1 >/dev/null 2>&1;
 /sbin/ethtool -C ${interface} adaptive-rx off >/dev/null 2>&1;
