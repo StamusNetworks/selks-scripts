@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright(C) 2014, Stamus Networks
+# Copyright(C) 2017, Stamus Networks
 # All rights reserved
 # Part of Debian SELKS scripts
 # Written by Peter Manev <pmanev@stamus-networks.com>
@@ -36,25 +36,14 @@ echo -e "\n The supplied network interface is :  ${interface} \n";
       exit 1;
   fi
 
-/sbin/ethtool -K ${interface} tso off
-/sbin/ethtool -K ${interface} gro off
-/sbin/ethtool -K ${interface} lro off
-/sbin/ethtool -K ${interface} gso off
-/sbin/ethtool -K ${interface} rx off
-/sbin/ethtool -K ${interface} tx off
-/sbin/ethtool -K ${interface} sg off
-/sbin/ethtool -K ${interface} rxvlan off
-/sbin/ethtool -K ${interface} txvlan off
-/sbin/ethtool -K ${interface} ntuple off
-/sbin/ethtool -K ${interface} rxhash off
-/sbin/ethtool -L ${interface} combined 1
-/sbin/ethtool -N ${interface} rx-flow-hash udp4 sdfn
-/sbin/ethtool -N ${interface} rx-flow-hash udp6 sdfn
-/sbin/ethtool -n ${interface} rx-flow-hash udp6
-/sbin/ethtool -n ${interface} rx-flow-hash udp4
-/sbin/ethtool -C ${interface} rx-usecs 1 rx-frames 0
-/sbin/ethtool -C ${interface} adaptive-rx off
-/sbin/ethtool -G ${interface} rx 4096
+/sbin/ethtool -G ${interface} rx 4096 >/dev/null 2>&1 ; 
+for i in rx tx sg tso ufo gso gro lro rxvlan txvlan ntuple rxhash; do /sbin/ethtool -K ${interface} $i off >/dev/null 2>&1; done; 
+
+/sbin/ethtool -A ${interface} rx off tx off >/dev/null 2>&1;
+/sbin/ip link set ${interface} promisc on arp off up >/dev/null 2>&1;
+/sbin/ethtool -C ${interface} rx-usecs 1 rx-frames 0 >/dev/null 2>&1;
+/sbin/ethtool -L ${interface} combined 1 >/dev/null 2>&1;
+/sbin/ethtool -C ${interface} adaptive-rx off >/dev/null 2>&1;
 
 echo -e "###################################"
 echo -e "# CURRENT STATUS - NIC OFFLOADING #"

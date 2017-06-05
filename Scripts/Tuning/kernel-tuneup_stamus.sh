@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright(C) 2014, Stamus Networks
+# Copyright(C) 2017, Stamus Networks
 # All rights reserved
 # Part of Debian SELKS scripts
 # Written by Peter Manev <pmanev@stamus-networks.com>

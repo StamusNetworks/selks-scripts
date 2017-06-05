@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright(C) 2014, Stamus Networks
+# Copyright(C) 2017, Stamus Networks
 # All rights reserved
 # Part of Debian SELKS scripts
 # Written by Peter Manev <pmanev@stamus-networks.com>
@@ -20,12 +20,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /bin/systemctl stop kibana
-/usr/share/elasticsearch/bin/plugin remove delete-by-query
 
 apt-get update && apt-get dist-upgrade
 
-chown -R kibana /opt/kibana/optimize/
-/usr/share/elasticsearch/bin/plugin install delete-by-query
+chown -R kibana /usr/share/kibana/optimize/
 
 /bin/systemctl restart elasticsearch
 /bin/systemctl restart kibana
