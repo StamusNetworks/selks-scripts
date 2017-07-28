@@ -27,7 +27,7 @@
 for i in rx tx sg tso ufo gso gro lro rxvlan txvlan ntuple rxhash; do /sbin/ethtool -K $IFACE $i off >/dev/null 2>&1; done; 
 
 /sbin/ethtool -A $IFACE rx off tx off >/dev/null 2>&1;
-/sbin/ip link set $IFACE promisc on up >/dev/null 2>&1;
+#/sbin/ip link set $IFACE promisc on up >/dev/null 2>&1;
 /sbin/ethtool -C $IFACE rx-usecs 1 rx-frames 0 >/dev/null 2>&1;
 /sbin/ethtool -L $IFACE combined 1 >/dev/null 2>&1;
 /sbin/ethtool -C $IFACE adaptive-rx off >/dev/null 2>&1;
