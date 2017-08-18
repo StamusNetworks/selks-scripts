@@ -43,12 +43,12 @@ apt-get install oracle-java8-installer libc6-dev
 if [ $? -eq 0 ];
 then
     echo "Restarting Elasticsearch service after Java upgrade!"
-    /etc/init.d/elasticsearch restart
+    /bin/systemctl restart elasticsearch
     
     sleep 5
     
     echo "Restarting Logstash service after Java upgrade!"
-    /etc/init.d/logstash restart
+    /bin/systemctl restart logstash
 fi
 
 echo -e "###############################"
