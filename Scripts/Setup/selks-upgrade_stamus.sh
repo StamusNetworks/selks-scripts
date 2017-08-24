@@ -27,4 +27,4 @@ chown -R kibana /usr/share/kibana/optimize/
 
 /bin/systemctl restart elasticsearch
 /bin/systemctl restart kibana
-
+/usr/bin/supervisorctl restart scirius 
