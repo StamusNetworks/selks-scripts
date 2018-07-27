@@ -38,9 +38,9 @@ echo -e "\nThe supplied network interface is:  ${interface} \n";
   fi
 
 sudo /bin/systemctl stop suricata
-rm -rf /var/run/suricata.pid
+sudo rm -rf /var/run/suricata.pid
 
-sed -i -e "/^af-packet:/{\$!N; s/  - interface:.*/  - interface: ${interface}/}" /etc/suricata/selks4-addin.yaml
+sudo sed -i -e "/^af-packet:/{\$!N; s/  - interface:.*/  - interface: ${interface}/}" /etc/suricata/selks5-addin.yaml
 
 sudo /bin/systemctl start suricata
 
