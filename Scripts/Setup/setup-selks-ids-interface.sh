@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright(C) 2017, Stamus Networks
+# Copyright(C) 2018, Stamus Networks
 # All rights reserved
 # Part of Debian SELKS scripts
 # Written by Peter Manev <pmanev@stamus-networks.com>
@@ -24,7 +24,10 @@
 
 echo -e "\nPlease supply a network interface to set up SELKS Suricata IDS inspection on"
 
-echo "INTERFACE: "
+echo -e "\nThe following are the available interfaces:"
+sudo ifconfig -a | sed 's/[ \t].*//;/^$/d' | awk -F":" '{print $1}'
+
+echo -e "\nConfigure INTERFACE: "
 read interface
 
 echo -e "\nThe supplied network interface is:  ${interface} \n";
