@@ -22,7 +22,15 @@
 
 # Wrapper around init/first time set up scripts
 
-/opt/selks/Scripts/Setup/setup-selks-ids-interface.sh
-/opt/selks/Scripts/Setup/selks-molochdb-init-setup_stamus.sh
+# make sure we save the logs for investigation if needed.
+mkdir -p /opt/selks/log/
+echo "START of first time setup script - $(date) " 2>&1 | tee -a /opt/selks/log/selks-first-time-setup_stamus.log
+
+/opt/selks/Scripts/Setup/setup-selks-ids-interface.sh 2>&1 | tee -a /opt/selks/log/selks-first-time-setup_stamus.log
+/opt/selks/Scripts/Setup/selks-molochdb-init-setup_stamus.sh 2>&1 | tee -a /opt/selks/log/selks-first-time-setup_stamus.log 
+( cd /usr/share/python/scirius/ && . bin/activate && python bin/manage.py kibana_reset && deactivate ) 2>&1 | tee -a /opt/selks/log/selks-first-time-setup_stamus.log
+echo "FINISH of first time setup script - $(date) " 2>&1 | tee -a /opt/selks/log/selks-first-time-setup_stamus.log
+
+
 
 
