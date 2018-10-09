@@ -35,7 +35,7 @@ if [ $? -ne 0 ]; then
 fi
 
 /opt/selks/Scripts/Setup/selks-molochdb-init-setup_stamus.sh 2>&1 | tee -a /opt/selks/log/selks-first-time-setup_stamus.log 
-( cd /usr/share/python/scirius/ && . bin/activate && python bin/manage.py kibana_reset && deactivate ) 2>&1 | tee -a /opt/selks/log/selks-first-time-setup_stamus.log
+( cd /usr/share/python/scirius/ && . bin/activate && python bin/manage.py kibana_reset && deactivate && cd /opt/) 2>&1 | tee -a /opt/selks/log/selks-first-time-setup_stamus.log
 echo "FINISH of first time setup script - $(date) " 2>&1 | tee -a /opt/selks/log/selks-first-time-setup_stamus.log
 
 

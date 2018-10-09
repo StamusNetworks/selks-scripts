@@ -68,6 +68,14 @@ firstboot_routine() {
         /bin/systemctl daemon-reload
         /bin/systemctl restart molochpcapread-selks.service
         /bin/systemctl restart molochviewer-selks.service
+        sleep 10
+        
+        echo -e "\n### Setting up Scirius/Moloch proxy user ###\n"
+        cd /data/moloch/viewer
+        /data/moloch/bin/node addUser.js -c /data/moloch/etc/config.ini moloch moloch moloch --admin --webauth
+        cd /opt/
+        
+        
         
     fi
 
