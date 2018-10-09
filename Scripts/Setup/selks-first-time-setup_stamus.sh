@@ -27,6 +27,13 @@ mkdir -p /opt/selks/log/
 echo "START of first time setup script - $(date) " 2>&1 | tee -a /opt/selks/log/selks-first-time-setup_stamus.log
 
 /opt/selks/Scripts/Setup/setup-selks-ids-interface.sh 2>&1 | tee -a /opt/selks/log/selks-first-time-setup_stamus.log
+
+if [ $? -ne 0 ]; then
+    echo "Previous job failed...Exiting..." 2>&1 | tee -a /opt/selks/log/selks-first-time-setup_stamus.log
+    echo -e "\n### Exited with ERROR  ###\n" 2>&1 | tee -a /opt/selks/log/selks-first-time-setup_stamus.log
+    exit 1
+fi
+
 /opt/selks/Scripts/Setup/selks-molochdb-init-setup_stamus.sh 2>&1 | tee -a /opt/selks/log/selks-first-time-setup_stamus.log 
 ( cd /usr/share/python/scirius/ && . bin/activate && python bin/manage.py kibana_reset && deactivate ) 2>&1 | tee -a /opt/selks/log/selks-first-time-setup_stamus.log
 echo "FINISH of first time setup script - $(date) " 2>&1 | tee -a /opt/selks/log/selks-first-time-setup_stamus.log

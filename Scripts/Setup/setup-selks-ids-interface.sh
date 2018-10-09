@@ -21,8 +21,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-echo -e "\nPlease supply a network interface to set up SELKS Suricata IDS inspection on"
+echo -e "\n### Setting up sniffing interface  ###\n"
+echo -e "\nPlease supply a network interface to set up SELKS Suricata IDPS inspection on"
 
 echo -e "\nThe following are the available interfaces:"
 sudo ifconfig -a | sed 's/[ \t].*//;/^$/d' | awk -F":" '{print $1}'
