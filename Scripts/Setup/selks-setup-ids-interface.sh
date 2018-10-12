@@ -33,12 +33,21 @@ read interface
 echo -e "\nThe supplied network interface is:  ${interface} \n";
 
 
-  if ! grep --quiet "${interface}" /proc/net/dev
-    then
-      echo -e "\nUSAGE: `basename $0` -> the script requires 1 argument - a network interface!"
-      echo -e "\nPlease supply a correct/existing network interface or check your spelling. Ex - eth1 \n"
-      exit 1;
-  fi
+if ! grep --quiet "${interface}" /proc/net/dev
+  then
+    echo -e "\nUSAGE: `basename $0` -> the script requires 1 argument - a network interface!"
+    echo -e "\nPlease supply a correct/existing network interface or check your spelling. Ex - eth1 \n"
+    exit 1;
+fi
+
+isitup=$(cat /sys/class/net/${interface}/operstate)
+if [[ ${isitup} != "up"  ]]
+  then
+    echo -e "\nThe specified interface - ${interface} - is not up."
+    echo -e "Please set up the interface.\n"
+    exit 1;
+fi
+
 
 sudo /bin/systemctl stop suricata
 sudo rm -rf /var/run/suricata.pid
