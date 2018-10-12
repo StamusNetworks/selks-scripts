@@ -31,23 +31,29 @@ cleanup_routine() {
                 echo "/data/moloch/db/db.pl"
                 exit 1
         fi
-        echo "Deleting Elasticsearch SELKS data"
-        curl -XDELETE 'http://localhost:9200/logstash*'
-        
-        echo "Deleting Moloch DB data (users stay untouched)"
-        printf 'WIPE\n' | /data/moloch/db/db.pl http://localhost:9200 wipe
-        
-        echo "Stopping Suricata & Logstash and cleaning up logs"
+        echo -e "\nStopping Suricata, Logstash & Moloch and cleaning up logs\n"
+        /bin/systemctl stop molochviewer-selks
+        /bin/systemctl stop molochpcapread-selks
         /bin/systemctl stop suricata
         /bin/systemctl stop logstash
         rm -rf /var/run/suricata.pid
         rm -f /var/log/suricata/*
+        #rm -rf /var/cache/logstash/sincedbs/since.db
+        echo -e "\nDeleting Elasticsearch SELKS data\n"
+        curl -XDELETE 'http://localhost:9200/logstash*'
+        
+        echo -e "\nDeleting Moloch DB data (users stay untouched)\n"
+        printf 'WIPE\n' | /data/moloch/db/db.pl http://localhost:9200 wipe
+        
         /bin/systemctl start suricata
         /bin/systemctl start logstash
+        /bin/systemctl start molochviewer-selks
+        /bin/systemctl start molochpcapread-selks
+        #curl -X GET "localhost:9200/_cat/indices?v"
     else
         
-        echo "Elasticsearch is in RED state or not up"
-        echo "Nothing will be erased/cleaned up."
+        echo -e "\nElasticsearch is in RED state or not up"
+        echo -e "\nNothing will be erased/cleaned up."
         
     fi
 
