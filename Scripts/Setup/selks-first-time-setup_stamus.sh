@@ -23,11 +23,11 @@
 # Wrapper around init/first time set up scripts
 
 # make sure we save the logs for investigation if needed.
-mkdir -p /opt/selks/log/
+sudo mkdir -p /opt/selks/log/
 (
 echo "START of first time setup script - $(date) " 
 
-/opt/selks/Scripts/Setup/selks-setup-ids-interface.sh 
+sudo /opt/selks/Scripts/Setup/selks-setup-ids-interface.sh 
 
 if [ $? -ne 0 ]; then
     echo "Previous job failed...Exiting..." 
@@ -49,7 +49,7 @@ do
         FPC) 
             echo "Enable Full Pcacket Capture"
             EXIT_STATUS="SUCCESS"
-            /opt/selks/Scripts/Setup/selks-molochdb-init-setup_stamus.sh FPC
+            sudo /opt/selks/Scripts/Setup/selks-molochdb-init-setup_stamus.sh FPC
             if [ $? -ne 0 ]; then
               echo "Moloch set up job failed...Exiting..." 
               echo -e "\n### Exited with ERROR  ###\n" 
@@ -59,7 +59,7 @@ do
         FPC_Retain) 
             echo "Enable Full Pcacket Capture with pcap retaining "
             EXIT_STATUS="SUCCESS"
-            /opt/selks/Scripts/Setup/selks-molochdb-init-setup_stamus.sh
+            sudo /opt/selks/Scripts/Setup/selks-molochdb-init-setup_stamus.sh
             if [ $? -ne 0 ]; then
               echo "Moloch set up job failed...Exiting..." 
               echo -e "\n### Exited with ERROR  ###\n" 
@@ -73,7 +73,7 @@ done
 
 
 cd /usr/share/python/scirius/ && . bin/activate \
-&& python bin/manage.py kibana_reset \
+&& sudo python bin/manage.py kibana_reset \
 && deactivate && cd /opt/
 
 if [ $? -ne 0 ]; then

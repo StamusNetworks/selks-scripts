@@ -64,6 +64,7 @@ firstboot_routine() {
           cp -f /opt/selks/Scripts/Configs/SELKS5/etc/systemd/system/molochpcapread-nonretain-selks.service /etc/systemd/system/molochpcapread-selks.service
         else
           cp -f /opt/selks/Scripts/Configs/SELKS5/etc/systemd/system/molochpcapread-selks.service /etc/systemd/system/molochpcapread-selks.service
+          chown logstash:logstash /data/moloch/raw
         fi
 
         echo -e "\n### Setting up and restarting services ###\n"
