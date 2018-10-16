@@ -19,7 +19,7 @@ StandardOutput=tty
 
 #Default setting. Config line for retaining the packet capture/pcaps on disk. Moloch is in charge of pcap rotation/deletion.
 #Please look at /data/moloch/etc/config.ini for more for more settings and info.
-ExecStart=/bin/sh -c '/data/moloch/bin/moloch-capture -c /data/moloch/etc/config.ini -m --copy --delete -R /data/nsm/  >> /data/moloch/logs/capture.log 2>&1'
+ExecStart=/bin/sh -c '/data/moloch/bin/mnoloch-capture -c /data/moloch/etc/config.ini -m --copy --delete -R /data/nsm/  >> /data/moloch/logs/capture.log 2>&1'
 WorkingDirectory=/data/moloch
 LimitCORE=infinity
 Restart=always

@@ -38,13 +38,39 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-EXIT_STATUS="SUCCESS"
-/opt/selks/Scripts/Setup/selks-molochdb-init-setup_stamus.sh  
-if [ $? -ne 0 ]; then
-    echo "Moloch set up job failed...Exiting..." 
-    echo -e "\n### Exited with ERROR  ###\n" 
-    EXIT_STATUS="FAILED"
-fi
+echo "FPC - Full Packet Capture. Suricata will rotate and delete the pcap captured files."
+echo "FPC_Retain - Full Packet Capture with having Moloch's pcap retention/rotation. Keeps the pcaps as long as there is space available."
+echo -e "None - disable packet capture\n"
+
+PS3="Please choose an option. Type in a number and hit \"Enter\" "
+select option in  FPC FPC_retain None
+do
+    case $option in
+        FPC) 
+            echo "Enable Full Pcacket Capture"
+            EXIT_STATUS="SUCCESS"
+            /opt/selks/Scripts/Setup/selks-molochdb-init-setup_stamus.sh FPC
+            if [ $? -ne 0 ]; then
+              echo "Moloch set up job failed...Exiting..." 
+              echo -e "\n### Exited with ERROR  ###\n" 
+              EXIT_STATUS="FAILED"
+            fi
+            break;;
+        FPC_Retain) 
+            echo "Enable Full Pcacket Capture with pcap retaining "
+            EXIT_STATUS="SUCCESS"
+            /opt/selks/Scripts/Setup/selks-molochdb-init-setup_stamus.sh
+            if [ $? -ne 0 ]; then
+              echo "Moloch set up job failed...Exiting..." 
+              echo -e "\n### Exited with ERROR  ###\n" 
+              EXIT_STATUS="FAILED"
+            fi
+            break;;
+        NONE)
+            break;;
+     esac
+done
+
 
 cd /usr/share/python/scirius/ && . bin/activate \
 && python bin/manage.py kibana_reset \
@@ -58,7 +84,7 @@ fi
 
 echo "FINISH of first time setup script - $(date) " 
 
-echo -e "\nExites with ${EXIT_STATUS}"
+echo -e "\nExited with ${EXIT_STATUS}"
 echo -e "\nFull log located at - /opt/selks/log/selks-first-time-setup_stamus.log"
 echo -e "\nPress enter to continue\n"
 read
