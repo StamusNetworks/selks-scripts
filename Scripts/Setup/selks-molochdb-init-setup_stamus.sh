@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-${1:-FPC_Retain}
+ARG=${1:-FPC_Retain}
 
 MOLOCH=/data/moloch/db/db.pl
 
@@ -60,7 +60,7 @@ firstboot_routine() {
         cp -f /data/moloch/etc/config.ini /data/moloch/etc/config.ini.orig-$(date +"%Y%m%d_%H%M%S")
         cp -f /opt/selks/Scripts/Configs/SELKS5/data/moloch/etc/molochpcapread-selks-config.ini /data/moloch/etc/config.ini
         cp -f /opt/selks/Scripts/Configs/SELKS5/etc/systemd/system/molochviewer-selks.service /etc/systemd/system/molochviewer-selks.service
-        if [[ ${1} = "FPC"  ]]; then
+        if [[ ${ARG} = "FPC"  ]]; then
           cp -f /opt/selks/Scripts/Configs/SELKS5/etc/systemd/system/molochpcapread-nonretain-selks.service /etc/systemd/system/molochpcapread-selks.service
         else
           cp -f /opt/selks/Scripts/Configs/SELKS5/etc/systemd/system/molochpcapread-selks.service /etc/systemd/system/molochpcapread-selks.service

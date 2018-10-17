@@ -43,7 +43,7 @@ echo "FPC_Retain - Full Packet Capture with having Moloch's pcap retention/rotat
 echo -e "None - disable packet capture\n"
 
 PS3="Please choose an option. Type in a number and hit \"Enter\" "
-select option in  FPC FPC_retain None
+select option in  FPC FPC_Retain NONE
 do
     case $option in
         FPC) 
