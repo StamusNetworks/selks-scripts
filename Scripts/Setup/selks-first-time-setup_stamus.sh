@@ -23,11 +23,17 @@
 # Wrapper around init/first time set up scripts
 
 # make sure we save the logs for investigation if needed.
-sudo mkdir -p /opt/selks/log/
+
+if (( $EUID != 0 )); then
+     echo -e "Please run this script as root or with \"sudo\".\n"
+     exit 1
+fi
+
+mkdir -p /opt/selks/log/
 (
 echo "START of first time setup script - $(date) " 
 
-sudo /opt/selks/Scripts/Setup/selks-setup-ids-interface.sh 
+/opt/selks/Scripts/Setup/selks-setup-ids-interface.sh 
 
 if [ $? -ne 0 ]; then
     echo "Previous job failed...Exiting..." 
@@ -49,7 +55,7 @@ do
         FPC) 
             echo "Enable Full Pcacket Capture"
             EXIT_STATUS="SUCCESS"
-            sudo /opt/selks/Scripts/Setup/selks-molochdb-init-setup_stamus.sh FPC
+            /opt/selks/Scripts/Setup/selks-molochdb-init-setup_stamus.sh FPC
             if [ $? -ne 0 ]; then
               echo "Moloch set up job failed...Exiting..." 
               echo -e "\n### Exited with ERROR  ###\n" 
@@ -59,7 +65,7 @@ do
         FPC_Retain) 
             echo "Enable Full Pcacket Capture with pcap retaining "
             EXIT_STATUS="SUCCESS"
-            sudo /opt/selks/Scripts/Setup/selks-molochdb-init-setup_stamus.sh
+            /opt/selks/Scripts/Setup/selks-molochdb-init-setup_stamus.sh
             if [ $? -ne 0 ]; then
               echo "Moloch set up job failed...Exiting..." 
               echo -e "\n### Exited with ERROR  ###\n" 
@@ -71,13 +77,7 @@ do
      esac
 done
 
-if (( $EUID != 0 )); then
-    sudo -- sh -c  'cd /usr/share/python/scirius/ && . bin/activate && python bin/manage.py kibana_reset && deactivate && cd /opt/'
-else
-    cd /usr/share/python/scirius/ && . bin/activate && python bin/manage.py kibana_reset && deactivate && cd /opt/
-fi
-
-
+cd /usr/share/python/scirius/ && . bin/activate && python bin/manage.py kibana_reset && deactivate && cd /opt/
 
 if [ $? -ne 0 ]; then
     echo "Dashboards loading set up job failed...Exiting..." 
