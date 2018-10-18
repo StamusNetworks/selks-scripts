@@ -112,7 +112,7 @@ sudo cat <<EOF >> ${intfconfig}
     cluster-type: cluster_flow
     defrag: yes
     use-mmap: yes
-    mmap-locked: yes
+    #mmap-locked: yes
     tpacket-v3: yes
     ring-size: 2048
     block-size: 32768
