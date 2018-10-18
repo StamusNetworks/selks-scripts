@@ -71,18 +71,17 @@ do
       echo -e "\nThe specified interface - ${interface} - is not up."
       echo -e "Setting it up....\n"
       ip link set "${interface}" up
+  fi
+  # we make sure we don't interfere with any static or dhcp settings in /etc/network/interfaces
+  if ! grep --quiet "${interface}" /etc/network/interfaces ; then
+      #Example: /etc/network/interfaces.d/enp0s8 ->
+      #auto enp0s8 
+      #iface enp0s8 inet manual
       echo "# Stamus Networks SELKS ${interface} interface set up auto generated!" > /etc/network/interfaces.d/"${interface}"
       echo -e "auto ${interface} \n" >> /etc/network/interfaces.d/"${interface}"
-    else
-      # we make sure we don't interfere with any static or dhcp settings in /etc/network/interfaces
-      if ! grep --quiet "${interface}" /etc/network/interfaces ; then
-        #Example: /etc/network/interfaces.d/enp0s8 ->
-        #auto enp0s8 
-        #iface enp0s8 inet manual
-        echo "# Stamus Networks SELKS ${interface} interface set up auto generated!" > /etc/network/interfaces.d/"${interface}"
-        echo -e "auto ${interface} \n" >> /etc/network/interfaces.d/"${interface}"
-        echo -e "iface ${interface} inet manual\n" >> /etc/network/interfaces.d/"${interface}"
-      fi
+      echo -e "iface ${interface} inet manual\n" >> /etc/network/interfaces.d/"${interface}"
+      echo -e "    up ip link set dev ${interface} up\n" >> /etc/network/interfaces.d/"${interface}"
+      echo -e "    down ip link set dev ${interface} down\n" >> /etc/network/interfaces.d/"${interface}"
   fi
 
 done
