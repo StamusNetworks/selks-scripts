@@ -76,8 +76,12 @@ do
     else
       # we make sure we don't interfere with any static or dhcp settings in /etc/network/interfaces
       if ! grep --quiet "${interface}" /etc/network/interfaces ; then
+        #Example: /etc/network/interfaces.d/enp0s8 ->
+        #auto enp0s8 
+        #iface enp0s8 inet manual
         echo "# Stamus Networks SELKS ${interface} interface set up auto generated!" > /etc/network/interfaces.d/"${interface}"
         echo -e "auto ${interface} \n" >> /etc/network/interfaces.d/"${interface}"
+        echo -e "iface ${interface} inet manual\n" >> /etc/network/interfaces.d/"${interface}"
       fi
   fi
 
