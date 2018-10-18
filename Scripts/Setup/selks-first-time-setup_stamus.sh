@@ -71,10 +71,13 @@ do
      esac
 done
 
+if (( $EUID != 0 )); then
+    sudo -- sh -c  'cd /usr/share/python/scirius/ && . bin/activate && python bin/manage.py kibana_reset && deactivate && cd /opt/'
+else
+    cd /usr/share/python/scirius/ && . bin/activate && python bin/manage.py kibana_reset && deactivate && cd /opt/
+fi
 
-cd /usr/share/python/scirius/ && . bin/activate \
-&& sudo python bin/manage.py kibana_reset \
-&& deactivate && cd /opt/
+
 
 if [ $? -ne 0 ]; then
     echo "Dashboards loading set up job failed...Exiting..." 

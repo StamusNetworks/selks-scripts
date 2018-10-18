@@ -27,7 +27,7 @@ MOLOCH=/data/moloch/db/db.pl
 firstboot_routine() {
     if  ( curl -X GET "localhost:9200/_cluster/health?wait_for_status=yellow&timeout=240s" )
     then
-        echo -e "\n### Setting up Moloch ###\n"
+        echo -e "\n\n### Setting up Moloch ###\n"
         /data/moloch/db/db.pl http://localhost:9200 init
         # get some default answers so we generate all needed configs for Moloch
         printf '\n\n\nno\n' | /data/moloch/bin/Configure
