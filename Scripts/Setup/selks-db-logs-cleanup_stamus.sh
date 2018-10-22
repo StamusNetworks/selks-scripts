@@ -59,4 +59,9 @@ cleanup_routine() {
 
 }
 
+if (( $EUID != 0 )); then
+     echo -e "Please run this script as root or with \"sudo\".\n"
+     exit 1
+fi
+
 cleanup_routine

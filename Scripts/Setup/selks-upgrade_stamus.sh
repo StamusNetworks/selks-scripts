@@ -19,6 +19,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+if (( $EUID != 0 )); then
+     echo -e "Please run this script as root or with \"sudo\".\n"
+     exit 1
+fi
+
 /bin/systemctl stop kibana
 
 apt-get update && apt-get dist-upgrade
