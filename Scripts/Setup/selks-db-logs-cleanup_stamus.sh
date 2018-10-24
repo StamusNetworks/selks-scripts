@@ -36,7 +36,9 @@ cleanup_routine() {
         /bin/systemctl stop molochpcapread-selks
         /bin/systemctl stop suricata
         /bin/systemctl stop logstash
-        rm -rf /var/run/suricata.pid
+        rm -f /data/nsm/*
+        rm -f /data/moloch/raw/*
+        rm -f /var/run/suricata.pid
         rm -f /var/log/suricata/*
         #rm -rf /var/cache/logstash/sincedbs/since.db
         echo -e "\nDeleting Elasticsearch SELKS data\n"
