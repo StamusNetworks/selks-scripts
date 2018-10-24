@@ -68,6 +68,9 @@ firstboot_routine() {
         fi
 
         echo -e "\n### Setting up and restarting services ###\n"
+        if id "logstash" >/dev/null 2>&1; then
+            chown logstash:logstash /data/moloch/raw/ -R
+        fi
         /bin/systemctl disable molochcapture.service
         /bin/systemctl disable molochviewer.service
         /bin/systemctl enable molochpcapread-selks.service
