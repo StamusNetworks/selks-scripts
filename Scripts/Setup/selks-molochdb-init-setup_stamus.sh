@@ -65,6 +65,27 @@ firstboot_routine() {
         else
           cp -f /opt/selks/Scripts/Configs/SELKS5/etc/systemd/system/molochpcapread-selks.service /etc/systemd/system/molochpcapread-selks.service
           chown logstash:logstash /data/moloch/raw
+	  
+		  echo -e "\nWould you like to setup a retention policy now? (y/n)"
+		  read RP
+		  if [[ ${RP} == [Yy]* ]]; then
+			  echo -e "\nPlease specify the maximum file size in Gigabytes. The disk should have room for at least 10 times the specified value. (default is 12)"
+			  read maxFileSizeG
+			  if ! [[ ${maxFileSizeG} =~ ^[0-9]+$ ]]; then
+				  echo -e "\nInvalid number."
+			  else
+				  echo -e "\n Setting maxFileSizeG to ${maxFileSizeG} Gigabyte."
+				  sed -i "s/.*maxFileSizeG = .*/maxFileSizeG = ${maxFileSizeG}/g" /data/moloch/etc/config.ini
+			  fi
+			  echo -e "\nPlease specify the maximum rotation time in minutes. (default is none)"
+			  read maxFileTimeM
+			  if ! [[ ${maxFileTimeM} =~ ^[0-9]+$ ]]; then
+				  echo -e "\nInvalid number."
+			  else
+				  echo -e "\n Setting maxFileTimeM to ${maxFileTimeM} minutes."
+				  sed -i "s/.*maxFileTimeM = .*/maxFileTimeM = ${maxFileTimeM}/g" /data/moloch/etc/config.ini
+			  fi
+		  fi
         fi
 
         echo -e "\n### Setting up and restarting services ###\n"
