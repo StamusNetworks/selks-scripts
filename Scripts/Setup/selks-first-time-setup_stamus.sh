@@ -73,6 +73,7 @@ do
             fi
             break;;
         NONE)
+            EXIT_STATUS="SUCCESS"
             break;;
      esac
 done
