@@ -92,7 +92,10 @@ firstboot_routine() {
         if id "logstash" >/dev/null 2>&1; then
             chown logstash:logstash /data/moloch/raw/ -R
         fi
-        /bin/systemctl disable molochcapture.service
+	
+	chown -R logstash:logstash /data/moloch/logs/
+        
+	/bin/systemctl disable molochcapture.service
         /bin/systemctl disable molochviewer.service
         /bin/systemctl enable molochpcapread-selks.service
         /bin/systemctl enable molochviewer-selks.service
