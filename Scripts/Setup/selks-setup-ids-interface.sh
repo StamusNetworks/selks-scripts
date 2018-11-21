@@ -51,7 +51,7 @@ function getInterfaces {
   
   for interface in ${interfaces}
   do
-    if ! grep --quiet "${interface}" /proc/net/dev ; then
+    if ! cat /sys/class/net/${interface}/operstate > /dev/null 2>&1 ; then
         echo -e "\nUSAGE: `basename $0` -> the script requires at least 1 argument - a network interface!"
         echo -e "#######################################"
         echo -e "Interface: ${interface} is NOT existing."
