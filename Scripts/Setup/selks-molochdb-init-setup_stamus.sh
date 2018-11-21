@@ -28,6 +28,15 @@ firstboot_routine() {
     if  ( curl -X GET "localhost:9200/_cluster/health?wait_for_status=yellow&timeout=240s" )
     then
         echo -e "\n\n### Setting up Moloch ###\n"
+        # make sure if there are services running - they are stopped.
+        if [ "`/bin/systemctl is-active molochviewer-selks`" != "active" ] 
+        then 
+            /bin/systemctl stop molochviewer-selks
+        fi
+        if [ "`/bin/systemctl is-active molochpcapread-selks`" != "active" ] 
+        then 
+            /bin/systemctl stop molochpcapread-selks
+        fi 
         /data/moloch/db/db.pl http://localhost:9200 init
         # get some default answers so we generate all needed configs for Moloch
         printf '\n\n\nno\n' | /data/moloch/bin/Configure
