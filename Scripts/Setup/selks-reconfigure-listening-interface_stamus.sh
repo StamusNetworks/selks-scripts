@@ -45,11 +45,11 @@ echo -e "\nThe supplied network interface is:  ${interface} \n";
 
 # Calling disable-interface-offloading_stamus.sh
 echo -e "\nCalling disable-interface-offloading_stamus.sh"
-/opt/selks/Scripts/Tuning/./disable-interface-offloading_stamus.sh ${interface}
+/usr/local/bin/selks-disable-interface-offloading_stamus.sh ${interface}
 
 # Calling kernel-tuneup_stamus.sh
 echo -e "\nCalling kernel-tuneup_stamus.sh"
-/opt/selks/Scripts/Tuning/./kernel-tuneup_stamus.sh
+/usr/local/bin/selks-kernel-tuneup_stamus.sh
 
 
 

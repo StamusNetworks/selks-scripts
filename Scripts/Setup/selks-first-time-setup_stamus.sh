@@ -33,7 +33,7 @@ mkdir -p /opt/selks/log/
 (
 echo "START of first time setup script - $(date) " 
 
-/opt/selks/Scripts/Setup/selks-setup-ids-interface.sh 
+/usr/local/bin/selks-setup-ids-interface.sh 
 
 if [ $? -ne 0 ]; then
     echo "Previous job failed...Exiting..." 
@@ -55,8 +55,8 @@ do
         FPC) 
             echo "Enable Full Pcacket Capture"
             EXIT_STATUS="SUCCESS"
-            /opt/selks/Scripts/Setup/selks-enable-suri-capture_stamus.sh && \
-            /opt/selks/Scripts/Setup/selks-molochdb-init-setup_stamus.sh FPC
+            /usr/local/bin/selks-enable-suri-capture_stamus.sh && \
+            /usr/local/bin/selks-molochdb-init-setup_stamus.sh FPC
             if [ $? -ne 0 ]; then
               echo "Moloch set up job failed...Exiting..." 
               echo -e "\n### Exited with ERROR  ###\n" 
@@ -66,8 +66,8 @@ do
         FPC_Retain) 
             echo "Enable Full Pcacket Capture with pcap retaining "
             EXIT_STATUS="SUCCESS"
-            /opt/selks/Scripts/Setup/selks-enable-suri-capture_stamus.sh && \
-            /opt/selks/Scripts/Setup/selks-molochdb-init-setup_stamus.sh
+            /usr/local/bin/selks-enable-suri-capture_stamus.sh && \
+            /usr/local/bin/selks-molochdb-init-setup_stamus.sh
             if [ $? -ne 0 ]; then
               echo "Moloch set up job failed...Exiting..." 
               echo -e "\n### Exited with ERROR  ###\n" 
@@ -77,7 +77,7 @@ do
         NONE)
             echo "Disable Full Packet Capture "
             EXIT_STATUS="SUCCESS"
-            /opt/selks/Scripts/Setup/selks-disable-suri-capture_stamus.sh
+            /usr/local/bin/selks-disable-suri-capture_stamus.sh
             if [ $? -ne 0 ]; then
               echo "Moloch set up job failed...Exiting..." 
               echo -e "\n### Exited with ERROR  ###\n" 
