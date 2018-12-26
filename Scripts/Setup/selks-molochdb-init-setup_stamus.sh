@@ -37,7 +37,7 @@ firstboot_routine() {
         then 
             /bin/systemctl stop molochpcapread-selks
         fi 
-        /data/moloch/db/db.pl http://localhost:9200 init
+        printf 'INIT\n' | /data/moloch/db/db.pl http://localhost:9200 init
         # get some default answers so we generate all needed configs for Moloch
         printf '\n\n\nno\n' | /data/moloch/bin/Configure
         /data/moloch/bin/moloch_add_user.sh selks-user "SELKS Admin User" selks-user --admin
