@@ -109,8 +109,8 @@ firstboot_routine() {
         /bin/systemctl enable molochpcapread-selks.service
         /bin/systemctl enable molochviewer-selks.service
         /bin/systemctl daemon-reload
-        /bin/systemctl restart molochpcapread-selks.service
-        /bin/systemctl restart molochviewer-selks.service
+        /bin/systemctl start molochpcapread-selks.service
+        /bin/systemctl start molochviewer-selks.service
         sleep 10
         
         echo -e "\n### Setting up Scirius/Moloch proxy user ###\n"
