@@ -26,6 +26,16 @@ fi
 
 /bin/systemctl stop kibana
 
+if [ "`/bin/systemctl is-active molochviewer-selks`" != "active" ] 
+then
+  /bin/systemctl stop molochviewer-selks
+fi
+
+if [ "`/bin/systemctl is-active molochpcapread-selks`" != "active" ] 
+then 
+  /bin/systemctl stop molochpcapread-selks
+fi 
+
 apt-get update && apt-get dist-upgrade
 
 chown -R kibana /usr/share/kibana/optimize/
@@ -33,3 +43,29 @@ chown -R kibana /usr/share/kibana/optimize/
 /bin/systemctl restart elasticsearch
 /bin/systemctl restart kibana
 /usr/bin/supervisorctl restart scirius 
+
+# Moloch upgrade
+moloch_latest=$(curl  https://api.github.com/repos/aol/moloch/tags  -s |jq -r '.[0].name' | cut -c 2-)
+moloch_current=$(dpkg -l |grep moloch | awk '{print $3}')
+
+if dpkg --compare-versions ${moloch_latest} gt ${moloch_current} ; then
+  echo "Upgrading Moloch.."
+  mkdir -p /opt/molochtmp
+  cd /opt/molochtmp/
+  
+  if /usr/bin/wget -q --timeout=10s --tries=1  https://files.molo.ch/builds/ubuntu-18.04/moloch_${moloch_latest}-1_amd64.deb ; then
+    dpkg -i /opt/molochtmp/moloch_${moloch_latest}-1_amd64.deb 
+    printf 'UPGRADE\n' | /data/moloch/db/db.pl http://localhost:9200 upgrade
+    rm /opt/molochtmp/moloch_${moloch_latest}-1_amd64.deb
+    
+    echo "Starting Moloch SELKS services.. "
+    /bin/systemctl start molochpcapread-selks.service
+    /bin/systemctl start molochviewer-selks.service
+  else
+    /bin/systemctl start molochpcapread-selks.service
+    /bin/systemctl start molochviewer-selks.service
+    echo "Could not download and upgrade Moloch. Please check your network connection."
+    exit 1;
+  fi
+
+fi
