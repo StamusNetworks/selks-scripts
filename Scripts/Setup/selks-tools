@@ -36,7 +36,7 @@ do
             ;;
         "Enable Suricata PCAP Capture")
             echo "Enabling Suricata PCAP Capture"
-            /usr/bin/selks-enable-suri-captuire_stamus
+            /usr/bin/selks-enable-suri-capture_stamus
             ;;
         "Reconfigure Listening Interface")
             echo "Reconfiguring listening interface"
