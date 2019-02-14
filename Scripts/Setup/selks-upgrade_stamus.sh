@@ -24,6 +24,11 @@ if (( $EUID != 0 )); then
      exit 1
 fi
 
+echo -e "\e[1mNOTE:"
+echo -e "\e[1mDepending on the size and how busy the system is the upgrade may take a while."
+echo -e "\e[1mStarting the upgrade sequence..."
+echo -e "\e[0m"
+
 /bin/systemctl stop kibana
 
 if [ "`/bin/systemctl is-active molochviewer-selks`" != "active" ] 
