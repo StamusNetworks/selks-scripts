@@ -9,7 +9,7 @@
 # This script comes with ABSOLUTELY NO WARRANTY!
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as publed by
+# it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
@@ -17,7 +17,7 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# Youould have received a copy of the GNU General Public License
+# You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Wrapper around init/first time set up scripts
@@ -87,10 +87,10 @@ do
      esac
 done
 
-cd /usrare/python/scirius/ && . bin/activate && python bin/manage.py kibana_reset && deactivate && cd /opt/
+cd /usr/share/python/scirius/ && . bin/activate && python bin/manage.py kibana_reset && deactivate && cd /opt/
 
 if [ $? -ne 0 ]; then
-    echo "Dboards loading set up job failed...Exiting..." 
+    echo "Dashboards loading set up job failed...Exiting..." 
     echo -e "\n### Exited with ERROR  ###\n" 
     EXIT_STATUS="FAILED"
 fi
