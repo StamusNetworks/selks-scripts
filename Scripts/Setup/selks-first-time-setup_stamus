@@ -56,6 +56,7 @@ do
             echo "Enable Full Pcacket Capture"
             EXIT_STATUS="SUCCESS"
             /usr/bin/selks-enable-suri-capture_stamus && \
+            /bin/systemctl restart suricata && \
             /usr/bin/selks-molochdb-init-setup_stamus FPC
             if [ $? -ne 0 ]; then
               echo "Moloch set up job failed...Exiting..." 
@@ -67,6 +68,7 @@ do
             echo "Enable Full Pcacket Capture with pcap retaining "
             EXIT_STATUS="SUCCESS"
             /usr/bin/selks-enable-suri-capture_stamus && \
+            /bin/systemctl restart suricata && \
             /usr/bin/selks-molochdb-init-setup_stamus
             if [ $? -ne 0 ]; then
               echo "Moloch set up job failed...Exiting..." 
@@ -77,7 +79,8 @@ do
         NONE)
             echo "Disable Full Packet Capture "
             EXIT_STATUS="SUCCESS"
-            /usr/bin/selks-disable-suri-capture_stamus
+            /usr/bin/selks-disable-suri-capture_stamus && \
+            /bin/systemctl restart suricata
             if [ $? -ne 0 ]; then
               echo "Moloch set up job failed...Exiting..." 
               echo -e "\n### Exited with ERROR  ###\n" 
