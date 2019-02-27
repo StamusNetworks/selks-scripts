@@ -20,7 +20,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 if (( $EUID != 0 )); then
-     echo -e "Please run this script as root or with \"sudo\".\n"
+     echo -e "\e[1mPlease run this script as root or with \"sudo\".\n"
+     echo -e "\e[0m"
      exit 1
 fi
 
@@ -54,7 +55,8 @@ moloch_latest=$(curl  https://api.github.com/repos/aol/moloch/tags  -s |jq -r '.
 moloch_current=$(dpkg -l |grep moloch | awk '{print $3}')
 
 if dpkg --compare-versions ${moloch_latest} gt ${moloch_current} ; then
-  echo "Upgrading Moloch.."
+  echo -e "\e[1m\nUpgrading Moloch.."
+  echo -e "\e[0m"
   mkdir -p /opt/molochtmp
   cd /opt/molochtmp/
   
@@ -63,13 +65,15 @@ if dpkg --compare-versions ${moloch_latest} gt ${moloch_current} ; then
     printf 'UPGRADE\n' | /data/moloch/db/db.pl http://localhost:9200 upgrade
     rm /opt/molochtmp/moloch_${moloch_latest}-1_amd64.deb
     
-    echo "Starting Moloch SELKS services.. "
+    echo -e "\e[1m\nStarting Moloch SELKS services.. "
+    echo -e "\e[0m"
     /bin/systemctl start molochpcapread-selks.service
     /bin/systemctl start molochviewer-selks.service
   else
     /bin/systemctl start molochpcapread-selks.service
     /bin/systemctl start molochviewer-selks.service
-    echo "Could not download and upgrade Moloch. Please check your network connection."
+    echo "\e[1m\nCould not download and upgrade Moloch. Please check your network connection."
+    echo -e "\e[0m"
     exit 1;
   fi
 
