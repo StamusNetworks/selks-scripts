@@ -60,8 +60,9 @@ do
             /bin/systemctl restart suricata && \
             /usr/bin/selks-molochdb-init-setup_stamus FPC
             if [ $? -ne 0 ]; then
-              echo "Moloch set up job failed...Exiting..." 
-              echo -e "\n### Exited with ERROR  ###\n" 
+              echo -e "\e[31mMoloch set up job failed...Exiting..." 
+              echo -e "\e[31m### Exited with ERROR  ###\n" 
+              echo -e "\e[0m"
               EXIT_STATUS="FAILED"
             fi
             break;;
@@ -72,8 +73,9 @@ do
             /bin/systemctl restart suricata && \
             /usr/bin/selks-molochdb-init-setup_stamus
             if [ $? -ne 0 ]; then
-              echo "Moloch set up job failed...Exiting..." 
-              echo -e "\n### Exited with ERROR  ###\n" 
+              echo -e "\e[31mMoloch set up job failed...Exiting..." 
+              echo -e "\e[31m### Exited with ERROR  ###\n" 
+              echo -e "\e[0m"
               EXIT_STATUS="FAILED"
             fi
             break;;
@@ -83,8 +85,9 @@ do
             /usr/bin/selks-disable-suri-capture_stamus && \
             /bin/systemctl restart suricata
             if [ $? -ne 0 ]; then
-              echo "Moloch set up job failed...Exiting..." 
-              echo -e "\n### Exited with ERROR  ###\n" 
+              echo -e "\e[31mMoloch set up job failed...Exiting..." 
+              echo -e "\e[31m### Exited with ERROR  ###\n" 
+              echo -e "\e[0m"
               EXIT_STATUS="FAILED"
             fi
             break;;
@@ -94,16 +97,18 @@ done
 cd /usr/share/python/scirius/ && . bin/activate && python bin/manage.py kibana_reset && deactivate && cd /opt/
 
 if [ $? -ne 0 ]; then
-    echo "Dashboards loading set up job failed...Exiting..." 
-    echo -e "\n### Exited with ERROR  ###\n" 
+    echo -e "\e[31mDashboards loading set up job failed...Exiting..." 
+    echo -e "\e[31m### Exited with ERROR  ###\n" 
+    echo -e "\e[0m"
     EXIT_STATUS="FAILED"
 fi
 
 echo "FINISH of first time setup script - $(date) " 
 
-echo -e "\nExited with ${EXIT_STATUS}"
-echo -e "\nFull log located at - /opt/selks/log/selks-first-time-setup_stamus.log"
-echo -e "\nPress enter to continue\n"
+echo -e "\e[1m\nExited with ${EXIT_STATUS}"
+echo -e "\e[1mFull log located at - /opt/selks/log/selks-first-time-setup_stamus.log"
+echo -e "\e[1mPress enter to continue\n"
+echo -e "\e[0m"
 read
 ) 2>&1 | tee -a /opt/selks/log/selks-first-time-setup_stamus.log
 
