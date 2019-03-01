@@ -77,3 +77,6 @@ if dpkg --compare-versions ${moloch_latest} gt ${moloch_current} ; then
   fi
 
 fi
+
+/bin/systemctl restart suricata
+
