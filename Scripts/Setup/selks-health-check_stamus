@@ -20,12 +20,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-/bin/systemctl status suricata 
-/bin/systemctl status elasticsearch 
-/bin/systemctl status logstash 
-/bin/systemctl status kibana
-/bin/systemctl status evebox
-/bin/systemctl status molochviewer-selks
-/bin/systemctl status molochpcapread-selks
+/bin/systemctl status --no-pager suricata 
+/bin/systemctl status --no-pager elasticsearch 
+/bin/systemctl status --no-pager logstash 
+/bin/systemctl status --no-pager kibana
+/bin/systemctl status --no-pager evebox
+/bin/systemctl status --no-pager molochviewer-selks
+/bin/systemctl status --no-pager molochpcapread-selks
 /usr/bin/supervisorctl status scirius
+/usr/bin/dpkg -l |grep -E "suricata|elastic|logstash|kibana|scirius|evebox|moloch"
 /bin/df -lhT
