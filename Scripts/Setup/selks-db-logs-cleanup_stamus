@@ -41,6 +41,8 @@ cleanup_routine() {
         rm -f /data/moloch/raw/*
         rm -f /var/run/suricata.pid
         rm -f /var/log/suricata/*
+        touch /var/log/suricata/eve.json 
+        chown logstash:logstash /var/log/suricata/eve.json
         #rm -rf /var/cache/logstash/sincedbs/since.db
         echo -e "\nDeleting Elasticsearch SELKS data\n"
         curl -XDELETE 'http://localhost:9200/logstash*'
