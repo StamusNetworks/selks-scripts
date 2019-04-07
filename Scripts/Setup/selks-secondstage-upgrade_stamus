@@ -25,9 +25,18 @@ if (( $EUID != 0 )); then
      exit 1
 fi
 
+SURI_CAPTURE_WASENABLED=""
+
 echo -e "\e[1mNOTE:"
 echo -e "\e[1mStarting second stage upgrade sequence..."
 echo -e "\e[0m"
+
+if ( /usr/bin/suricata --dump-config |grep 'outputs.7.pcap-log.enabled = yes' ) 
+then 
+  # check if suri capture was enabled prior to the upgrade.
+  # If it is and the conf file is overwritten - make sure we re-enable it again.
+  SURI_CAPTURE_WASENABLED="YES"
+fi 
 
 /bin/systemctl stop kibana
 
@@ -77,6 +86,11 @@ if dpkg --compare-versions ${moloch_latest} gt ${moloch_current} ; then
   fi
 
 fi
+
+if  [ "$SURI_CAPTURE_WASENABLED" == "YES" ] 
+then 
+  /usr/bin/selks-enable-suri-capture_stamus
+fi 
 
 /bin/systemctl restart suricata
 
