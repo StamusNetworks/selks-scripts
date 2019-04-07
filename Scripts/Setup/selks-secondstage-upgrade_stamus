@@ -40,12 +40,12 @@ fi
 
 /bin/systemctl stop kibana
 
-if [ "`/bin/systemctl is-active molochviewer-selks`" != "active" ] 
+if [ "`/bin/systemctl is-active molochviewer-selks`" == "active" ] 
 then
   /bin/systemctl stop molochviewer-selks
 fi
 
-if [ "`/bin/systemctl is-active molochpcapread-selks`" != "active" ] 
+if [ "`/bin/systemctl is-active molochpcapread-selks`" == "active" ] 
 then 
   /bin/systemctl stop molochpcapread-selks
 fi 
