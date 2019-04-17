@@ -84,7 +84,10 @@ if dpkg --compare-versions ${moloch_latest} gt ${moloch_current} ; then
     echo -e "\e[0m"
     exit 1;
   fi
-
+  
+else
+  /bin/systemctl start molochpcapread-selks.service
+  /bin/systemctl start molochviewer-selks.service
 fi
 
 if  [ "$SURI_CAPTURE_WASENABLED" == "YES" ] 
