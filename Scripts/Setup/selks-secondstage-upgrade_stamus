@@ -69,9 +69,16 @@ if dpkg --compare-versions ${moloch_latest} gt ${moloch_current} ; then
   cd /opt/molochtmp/
   
   if /usr/bin/wget -q --timeout=10s --tries=1  https://files.molo.ch/builds/ubuntu-18.04/moloch_${moloch_latest}-1_amd64.deb ; then
-    dpkg -i /opt/molochtmp/moloch_${moloch_latest}-1_amd64.deb 
-    printf 'UPGRADE\n' | /data/moloch/db/db.pl http://localhost:9200 upgrade
-    rm /opt/molochtmp/moloch_${moloch_latest}-1_amd64.deb
+    if  ( curl -4 --retry 4 --retry-connrefused --retry-delay 30 -X GET "localhost:9200/_cluster/health?wait_for_status=yellow&timeout=240s" )
+    then
+      dpkg -i /opt/molochtmp/moloch_${moloch_latest}-1_amd64.deb 
+      printf 'UPGRADE\n' | /data/moloch/db/db.pl http://localhost:9200 upgrade
+      rm /opt/molochtmp/moloch_${moloch_latest}-1_amd64.deb
+    else
+      echo "\e[1m\nMoloch will not be upgraded!! Please check that Elasticsearch is up and running."
+      echo -e "\e[0m"
+      exit 1;
+    fi
     
     echo -e "\e[1m\nStarting Moloch SELKS services.. "
     echo -e "\e[0m"
@@ -80,7 +87,7 @@ if dpkg --compare-versions ${moloch_latest} gt ${moloch_current} ; then
   else
     /bin/systemctl start molochpcapread-selks.service
     /bin/systemctl start molochviewer-selks.service
-    echo "\e[1m\nCould not download and upgrade Moloch. Please check your network connection."
+    echo "\e[1m\nCould not download and upgrade Moloch. Please check your network connection or that Elasticsearch is up and running."
     echo -e "\e[0m"
     exit 1;
   fi
