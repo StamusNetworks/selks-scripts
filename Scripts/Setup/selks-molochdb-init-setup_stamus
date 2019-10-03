@@ -48,32 +48,32 @@ firstboot_routine() {
             echo "The currently installed Moloch config.ini is not installed or in the expected location"
             exit 1
         fi
-        if [ ! -e /opt/selks/Scripts/Configs/SELKS5/data/moloch/etc/molochpcapread-selks-config.ini ]
+        if [ ! -e /opt/selks/Scripts/Configs/SELKS6/data/moloch/etc/molochpcapread-selks-config.ini ]
         then
             echo "Moloch molochpcapread-selks.service is not installed or in the expected location:"
-            echo "/opt/selks/Scripts/Configs/SELKS5/data/moloch/etc/molochpcapread-selks-config.ini"
+            echo "/opt/selks/Scripts/Configs/SELKS6/data/moloch/etc/molochpcapread-selks-config.ini"
             exit 1
         fi
-        if [ ! -e /opt/selks/Scripts/Configs/SELKS5/etc/systemd/system/molochpcapread-selks.service ]
+        if [ ! -e /opt/selks/Scripts/Configs/SELKS6/etc/systemd/system/molochpcapread-selks.service ]
         then
             echo "Moloch molochpcapread-selks.service is not installed or in the expected location:"
-            echo "/opt/selks/Scripts/Configs/SELKS5/etc/systemd/system/molochpcapread-selks.service"
+            echo "/opt/selks/Scripts/Configs/SELKS6/etc/systemd/system/molochpcapread-selks.service"
             exit 1
         fi
-        if [ ! -e /opt/selks/Scripts/Configs/SELKS5/etc/systemd/system/molochviewer-selks.service ]
+        if [ ! -e /opt/selks/Scripts/Configs/SELKS6/etc/systemd/system/molochviewer-selks.service ]
         then
             echo "Moloch molochpcapread-selks.service is not installed or in the expected location:"
-            echo "/opt/selks/Scripts/Configs/SELKS5/etc/systemd/system/molochviewer-selks.service"
+            echo "/opt/selks/Scripts/Configs/SELKS6/etc/systemd/system/molochviewer-selks.service"
             exit 1
         fi
         echo -e "\n### Setting up Moloch configs and services ###\n"
         cp -f /data/moloch/etc/config.ini /data/moloch/etc/config.ini.orig-$(date +"%Y%m%d_%H%M%S")
-        cp -f /opt/selks/Scripts/Configs/SELKS5/data/moloch/etc/molochpcapread-selks-config.ini /data/moloch/etc/config.ini
-        cp -f /opt/selks/Scripts/Configs/SELKS5/etc/systemd/system/molochviewer-selks.service /etc/systemd/system/molochviewer-selks.service
+        cp -f /opt/selks/Scripts/Configs/SELKS6/data/moloch/etc/molochpcapread-selks-config.ini /data/moloch/etc/config.ini
+        cp -f /opt/selks/Scripts/Configs/SELKS6/etc/systemd/system/molochviewer-selks.service /etc/systemd/system/molochviewer-selks.service
         if [[ ${ARG} = "FPC"  ]]; then
-          cp -f /opt/selks/Scripts/Configs/SELKS5/etc/systemd/system/molochpcapread-nonretain-selks.service /etc/systemd/system/molochpcapread-selks.service
+          cp -f /opt/selks/Scripts/Configs/SELKS6/etc/systemd/system/molochpcapread-nonretain-selks.service /etc/systemd/system/molochpcapread-selks.service
         else
-          cp -f /opt/selks/Scripts/Configs/SELKS5/etc/systemd/system/molochpcapread-selks.service /etc/systemd/system/molochpcapread-selks.service
+          cp -f /opt/selks/Scripts/Configs/SELKS6/etc/systemd/system/molochpcapread-selks.service /etc/systemd/system/molochpcapread-selks.service
           chown logstash:logstash /data/moloch/raw
 	  
 		  echo -e "\nWould you like to setup a retention policy now? (y/n)"

@@ -1,0 +1,19 @@
+[Unit]
+Description=Moloch Pcap Read
+#After=elasticsearch.service
+
+[Service]
+Type=simple
+StandardOutput=tty
+User=logstash
+Group=logstash
+ExecStart=/bin/sh -c '/data/moloch/bin/moloch-capture -c /data/moloch/etc/config.ini -m --copy --delete -R /data/nsm/  >> /data/moloch/logs/capture.log 2>&1'
+WorkingDirectory=/data/moloch
+LimitCORE=infinity
+Restart=always
+RestartSec=90
+StartLimitInterval=600
+StartLimitBurst=4
+
+[Install]
+WantedBy=multi-user.target
