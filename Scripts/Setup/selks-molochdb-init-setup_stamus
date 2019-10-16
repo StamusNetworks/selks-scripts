@@ -50,7 +50,7 @@ firstboot_routine() {
         fi
         if [ ! -e /opt/selks/Scripts/Configs/SELKS6/data/moloch/etc/molochpcapread-selks-config.ini ]
         then
-            echo "Moloch molochpcapread-selks.service is not installed or in the expected location:"
+            echo "Moloch molochpcapread-selks-config.ini is not installed or in the expected location:"
             echo "/opt/selks/Scripts/Configs/SELKS6/data/moloch/etc/molochpcapread-selks-config.ini"
             exit 1
         fi
