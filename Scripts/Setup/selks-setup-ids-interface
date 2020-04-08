@@ -93,7 +93,7 @@ done
 
 
 # Set up  Suricata yaml configuration for the given interfaces
-intfconfig=/etc/suricata/selks5-interfaces-config.yaml
+intfconfig=/etc/suricata/selks6-interfaces-config.yaml
 
 cat <<EOF > ${intfconfig}
 %YAML 1.1

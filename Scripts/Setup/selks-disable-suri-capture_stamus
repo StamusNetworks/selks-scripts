@@ -21,4 +21,4 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-sed -i  '/- pcap-log:/{n;s/yes/no/}' /etc/suricata/selks5-addin.yaml
+sed -i  '/- pcap-log:/{n;s/yes/no/}' /etc/suricata/selks6-addin.yaml
