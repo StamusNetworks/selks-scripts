@@ -59,7 +59,7 @@ chown -R kibana /usr/share/kibana/optimize/
 /usr/bin/supervisorctl restart scirius 
 
 # Moloch upgrade
-moloch_latest=$(curl  https://api.github.com/repos/aol/moloch/tags  -s |jq -r '.[0].name' | cut -c 2-)
+moloch_latest=$(curl  https://api.github.com/repos/aol/moloch/tags -L -s |jq -r '.[0].name' | cut -c 2-)
 moloch_current=$(dpkg -l |grep moloch | awk '{print $3}')
 
 if dpkg --compare-versions ${moloch_latest} gt ${moloch_current} ; then
